@@ -12,6 +12,9 @@ import (
 )
 
 func ___syscall_cp(tls *TLS, n, a, b, c, d, e, f long) long {
+	if utPre411Kernel(n) {
+		return -long(unix.ENOSYS)
+	}
 	switch n {
 	case SYS_nanosleep:
 		// int nanosleep(const struct timespec *req, struct timespec *rem)
@@ -85,6 +88,9 @@ func sleepSyscall(tls *TLS, n long, args [6]long, iReq, iRem int, flags long) lo
 }
 
 func X__syscall0(tls *TLS, n long) long {
+	if utPre411Kernel(n) {
+		return -long(unix.ENOSYS)
+	}
 	switch n {
 	case __NR_sched_yield:
 		runtime.Gosched()
@@ -100,6 +106,9 @@ func X__syscall0(tls *TLS, n long) long {
 }
 
 func X__syscall1(tls *TLS, n, a1 long) long {
+	if utPre411Kernel(n) {
+		return -long(unix.ENOSYS)
+	}
 	r1, _, err := unix.Syscall(uintptr(n), uintptr(a1), 0, 0)
 	if err != 0 {
 		return long(-err)
@@ -109,6 +118,9 @@ func X__syscall1(tls *TLS, n, a1 long) long {
 }
 
 func X__syscall2(tls *TLS, n, a1, a2 long) long {
+	if utPre411Kernel(n) {
+		return -long(unix.ENOSYS)
+	}
 	r1, _, err := unix.Syscall(uintptr(n), uintptr(a1), uintptr(a2), 0)
 	if err != 0 {
 		return long(-err)
@@ -118,6 +130,9 @@ func X__syscall2(tls *TLS, n, a1, a2 long) long {
 }
 
 func X__syscall3(tls *TLS, n, a1, a2, a3 long) long {
+	if utPre411Kernel(n) {
+		return -long(unix.ENOSYS)
+	}
 	r1, _, err := unix.Syscall(uintptr(n), uintptr(a1), uintptr(a2), uintptr(a3))
 	if err != 0 {
 		return long(-err)
@@ -127,6 +142,9 @@ func X__syscall3(tls *TLS, n, a1, a2, a3 long) long {
 }
 
 func X__syscall4(tls *TLS, n, a1, a2, a3, a4 long) long {
+	if utPre411Kernel(n) {
+		return -long(unix.ENOSYS)
+	}
 	r1, _, err := unix.Syscall6(uintptr(n), uintptr(a1), uintptr(a2), uintptr(a3), uintptr(a4), 0, 0)
 	if err != 0 {
 		return long(-err)
@@ -136,6 +154,9 @@ func X__syscall4(tls *TLS, n, a1, a2, a3, a4 long) long {
 }
 
 func X__syscall5(tls *TLS, n, a1, a2, a3, a4, a5 long) long {
+	if utPre411Kernel(n) {
+		return -long(unix.ENOSYS)
+	}
 	r1, _, err := unix.Syscall6(uintptr(n), uintptr(a1), uintptr(a2), uintptr(a3), uintptr(a4), uintptr(a5), 0)
 	if err != 0 {
 		return long(-err)
@@ -145,6 +166,9 @@ func X__syscall5(tls *TLS, n, a1, a2, a3, a4, a5 long) long {
 }
 
 func X__syscall6(tls *TLS, n, a1, a2, a3, a4, a5, a6 long) long {
+	if utPre411Kernel(n) {
+		return -long(unix.ENOSYS)
+	}
 	r1, _, err := unix.Syscall6(uintptr(n), uintptr(a1), uintptr(a2), uintptr(a3), uintptr(a4), uintptr(a5), uintptr(a6))
 	if err != 0 {
 		return long(-err)
