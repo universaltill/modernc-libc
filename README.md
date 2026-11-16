@@ -48,3 +48,22 @@ want, then use that pair together. If you consume translated code produced by
 someone else, `modernc.org/sqlite` for instance, take the libc version from that
 package's `go.mod` and do not bump it on your own just because a newer libc is
 tagged.
+
+---
+
+## Universal Till fork notice
+
+This is a fork of [modernc.org/libc](https://gitlab.com/cznic/libc) maintained
+by Universal Till. The upstream BSD-3-Clause licence and notices are unchanged.
+
+Each tag `vX.Y.Z-ut.N` is exactly upstream `vX.Y.Z` plus one reviewed patch
+(`syscall_musl.go`, `syscall_ut_pre411.go`, `syscall_ut_pre411_test.go`):
+on 32-bit ARM, syscall numbers >= 397 (statx, the time64 family, pidfd_*) are
+answered with `-ENOSYS` from user space. Android 8-10 app seccomp filters kill
+the process on numbers they do not know instead of returning `ENOSYS`, so
+musl's "newest syscall first, fall back on ENOSYS" logic crashed the app.
+Every other GOARCH compiles the patch to a constant false.
+
+Tags are never moved. Why and how to drop this fork:
+universaltill/ut-docs `adr/0188-*`; tracking card universaltill/ut-docs#6300.
+This branch (`main`) only adds this notice on top of the tagged commit.
