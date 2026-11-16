@@ -58,12 +58,13 @@ by Universal Till. The upstream BSD-3-Clause licence and notices are unchanged.
 
 Each tag `vX.Y.Z-ut.N` is exactly upstream `vX.Y.Z` plus one reviewed patch
 (`syscall_musl.go`, `syscall_ut_pre411.go`, `syscall_ut_pre411_test.go`):
-on 32-bit ARM, syscall numbers >= 397 (statx, the time64 family, pidfd_*) are
-answered with `-ENOSYS` from user space. Android 8-10 app seccomp filters kill
+on 32-bit ARM, syscall numbers from 397 (statx, the time64 family, pidfd_*) up
+to, not including, the ARM-private range 0x0f0000 are answered with `-ENOSYS` from user space. Android 8-10 app seccomp filters kill
 the process on numbers they do not know instead of returning `ENOSYS`, so
 musl's "newest syscall first, fall back on ENOSYS" logic crashed the app.
 Every other GOARCH compiles the patch to a constant false.
 
 Tags are never moved. Why and how to drop this fork:
 universaltill/ut-docs `adr/0188-*`; tracking card universaltill/ut-docs#6300.
-This branch (`main`) only adds this notice on top of the tagged commit.
+This branch (`main`) is the latest tag plus this notice. `v1.75.6-ut.1` gated
+the ARM-private numbers too; use `v1.75.6-ut.2` or later.
